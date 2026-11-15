@@ -59,6 +59,7 @@ const client = redis.createClient({ url: 'redis://127.0.0.1:6379' });
 client.connect().catch(console.error);
 
 app.use('/word-chart-app', express.static(path.join(__dirname, 'public')));
+app.get('/', (req, res) => res.redirect('/word-chart-app/'));
 
 // Utility to count words from a stream
 async function countWordsFromFile(filePath) {

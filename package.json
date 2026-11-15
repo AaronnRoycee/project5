@@ -1,0 +1,13 @@
+{
+  "name": "cse6332-project5",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Project 5: word counts for three Project Gutenberg books, stored in Redis",
+  "scripts": {
+    "start": "sh start.sh"
+  },
+  "dependencies": {
+    "express": "5.3.0",
+    "redis": "6.3.1"
+  }
+}

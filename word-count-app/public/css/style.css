@@ -1,27 +1,169 @@
-/* Dark styles follow the page's theme (data-bs-theme on <html>, set from the OS setting and by the
-   Toggle Theme button), not the OS setting alone, so the toggle restyles everything. */
-[data-bs-theme="dark"] body {
-  background-color: #121212;
-  color: #f1f1f1;
+/* Theme shared with the Project 3 and 4 site. Bootstrap still does the layout; these rules
+   recolor it. The dark theme is the default; the Toggle Theme button switches to light and the
+   choice is remembered across pages. */
+:root {
+  --app-bg: #11161d;
+  --app-surface: #1a212b;
+  --app-surface-alt: #222c38;
+  --app-border: #2e3a49;
+  --app-text: #e8edf3;
+  --app-muted: #9aa8b8;
+  --app-accent: #d93f3f;
+  --app-accent-rgb: 217, 63, 63;
+  --app-ok: #3fa96a;
+  --bs-body-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --bs-primary: var(--app-accent);
+  --bs-primary-rgb: var(--app-accent-rgb);
+  --bs-link-color: var(--app-accent);
+  --bs-link-color-rgb: var(--app-accent-rgb);
+  --bs-link-hover-color: #e86565;
+  --bs-link-hover-color-rgb: 232, 101, 101;
+  --bs-focus-ring-color: rgba(var(--app-accent-rgb), 0.3);
 }
 
-[data-bs-theme="dark"] canvas {
-  background-color: #1e1e1e;
+[data-bs-theme="dark"] {
+  color-scheme: dark;
+  --bs-body-bg: var(--app-bg);
+  --bs-body-bg-rgb: 17, 22, 29;
+  --bs-body-color: var(--app-text);
+  --bs-body-color-rgb: 232, 237, 243;
+  --bs-emphasis-color: #ffffff;
+  --bs-secondary-color: var(--app-muted);
+  --bs-secondary-bg: var(--app-surface);
+  --bs-secondary-bg-rgb: 26, 33, 43;
+  --bs-tertiary-bg: var(--app-surface-alt);
+  --bs-tertiary-bg-rgb: 34, 44, 56;
+  --bs-border-color: var(--app-border);
+  --bs-heading-color: #ffffff;
 }
 
-[data-bs-theme="dark"] h2,
-[data-bs-theme="dark"] h3 {
-  color: #fff;
+body {
+  line-height: 1.5;
 }
+
+/* Navigation bar and footer, as on the Project 3 and 4 site */
+.site-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.75rem 1rem 0;
+  margin-bottom: 1.5rem;
+}
+
+.site-nav a {
+  color: var(--bs-secondary-color);
+  text-decoration: none;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-size: 0.9rem;
+}
+
+.site-nav a:hover { color: var(--bs-body-color); }
+
+.site-nav a.active {
+  color: var(--bs-body-color);
+  border-color: var(--bs-border-color);
+  background: var(--bs-secondary-bg);
+}
+
+.site-nav .nav-external { margin-left: 0.5rem; }
+
+#toggleTheme {
+  margin-left: 0.75rem;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+}
+
+.site-footer {
+  border-top: 1px solid var(--bs-border-color);
+  margin-top: 3rem;
+  padding: 1.25rem 1rem;
+  text-align: center;
+  color: var(--bs-secondary-color);
+  font-size: 0.85rem;
+}
+
+/* Page titles get the red underline used on the other site */
+h1, body > h2:first-of-type {
+  letter-spacing: -0.02em;
+}
+
+h1::after, body > h2:first-of-type::after {
+  content: "";
+  display: block;
+  width: 4rem;
+  height: 3px;
+  margin: 0.75rem auto 0;
+  background: var(--app-accent);
+  border-radius: 2px;
+}
+
+/* Cards, panels and lists use the dark surfaces */
+[data-bs-theme="dark"] .card,
+[data-bs-theme="dark"] .bg-body-secondary {
+  background-color: var(--app-surface) !important;
+  border: 1px solid var(--app-border);
+}
+
+.card { border-radius: 10px; }
+[data-bs-theme="dark"] .card.shadow,
+[data-bs-theme="dark"] .shadow-sm { box-shadow: none !important; }
+
+[data-bs-theme="dark"] .list-group {
+  --bs-list-group-bg: var(--app-surface);
+  --bs-list-group-border-color: var(--app-border);
+  --bs-list-group-color: var(--app-text);
+}
+
+/* Buttons and form controls in the accent color */
+.btn-primary {
+  --bs-btn-bg: var(--app-accent);
+  --bs-btn-border-color: var(--app-accent);
+  --bs-btn-hover-bg: #c53636;
+  --bs-btn-hover-border-color: #c53636;
+  --bs-btn-active-bg: #b02f2f;
+  --bs-btn-active-border-color: #b02f2f;
+  --bs-btn-disabled-bg: var(--app-accent);
+  --bs-btn-disabled-border-color: var(--app-accent);
+  --bs-btn-focus-shadow-rgb: var(--app-accent-rgb);
+}
+
+[data-bs-theme="dark"] .btn-secondary {
+  --bs-btn-bg: var(--app-surface-alt);
+  --bs-btn-border-color: var(--app-border);
+  --bs-btn-color: var(--app-text);
+  --bs-btn-hover-bg: #2b3746;
+  --bs-btn-hover-border-color: var(--app-border);
+  --bs-btn-hover-color: #ffffff;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--app-accent);
+  box-shadow: 0 0 0 0.2rem rgba(var(--app-accent-rgb), 0.25);
+}
+
+.form-range { accent-color: var(--app-accent); }
+.form-range::-webkit-slider-thumb { background-color: var(--app-accent); }
+.form-range::-moz-range-thumb { background-color: var(--app-accent); }
+.form-range:focus::-webkit-slider-thumb { box-shadow: 0 0 0 1px var(--bs-body-bg), 0 0 0 0.25rem rgba(var(--app-accent-rgb), 0.25); }
 
 [data-bs-theme="dark"] .form-label,
-[data-bs-theme="dark"] .form-select,
-[data-bs-theme="dark"] .btn {
-  color-scheme: dark;
+[data-bs-theme="dark"] .form-text {
+  color: var(--app-muted);
+}
+
+/* Charts */
+[data-bs-theme="dark"] canvas {
+  background-color: var(--app-surface);
 }
 
 [data-bs-theme="dark"] .border {
-  border-color: #555 !important;
+  border-color: var(--app-border) !important;
 }
 
 .subtitle-text {
@@ -30,5 +172,5 @@
 }
 
 [data-bs-theme="dark"] .subtitle-text {
-  color: #cccccc;
+  color: var(--app-muted);
 }

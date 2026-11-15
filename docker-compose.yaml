@@ -1,0 +1,9 @@
+services:
+  wordcounts:
+    build: .
+    image: cse6332-project5
+    container_name: cse6332-project5
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8085:9002"
+    mem_limit: 512m

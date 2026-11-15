@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: cse6332-project5
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /word-chart-app/api/books
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: "9002"

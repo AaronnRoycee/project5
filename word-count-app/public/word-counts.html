@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
+<html lang="en" data-bs-theme="dark">
 <head>
   <base href="/word-chart-app/">
   <meta charset="UTF-8" />
@@ -17,7 +17,7 @@
   <script>
     // Same theme toggle as the other pages; a theme change also redraws the charts.
     document.addEventListener('DOMContentLoaded', () => {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const prefersDark = (localStorage.getItem('wordChartTheme') || 'dark') === 'dark';
       const toggleButton = document.getElementById('toggleTheme');
       const toggleIcon = document.getElementById('themeIcon');
 
@@ -32,6 +32,7 @@
       toggleButton.addEventListener('click', () => {
         const currentTheme = document.documentElement.getAttribute('data-bs-theme');
         document.documentElement.setAttribute('data-bs-theme', currentTheme === 'dark' ? 'light' : 'dark');
+        localStorage.setItem('wordChartTheme', document.documentElement.getAttribute('data-bs-theme'));
         updateThemeIcon();
         if (pieChart || barChart) loadCharts();   // redraw with the new colors
       });
@@ -40,10 +41,7 @@
 </head>
 <body class="container py-4">
 
-  <!-- Theme toggle button -->
-  <button id="toggleTheme" class="btn btn-secondary position-fixed top-0 end-0 m-3">
-    <span id="themeIcon"></span> Toggle Theme
-  </button>
+<nav class="site-nav"><a href="./">Home</a><a href="word-counts.html" class="active" aria-current="page">Word Counts</a><a href="unique.html">Unique Word Comparison</a><a href="chart.html">Word Charts</a><a class="nav-external" href="https://cse6332-project3.onrender.com/performance">Projects 3 &amp; 4</a><button id="toggleTheme" class="btn btn-secondary"><span id="themeIcon"></span> Toggle Theme</button></nav>
 
   <h2 class="text-center mb-4">Word Frequency Charts</h2>
 
@@ -208,7 +206,8 @@
           labels: barLabels,
           datasets: [{
             label: 'Top Words',
-            data: barCounts
+            data: barCounts,
+            backgroundColor: 'rgba(217, 63, 63, 0.8)'
           }]
         },
         options: {
@@ -241,5 +240,6 @@
       });
     }
   </script>
+<footer class="site-footer">Aaron Pantoja &middot; CSE 6332 Project 5 &middot; word counts stored in Redis hashes, served by Node.js</footer>
 </body>
 </html>
