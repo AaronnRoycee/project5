@@ -2,3 +2,4 @@ node_modules/
 books/
 .DS_Store
 dist/
+word-count-app.zip
