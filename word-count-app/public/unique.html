@@ -147,7 +147,7 @@
 
 <body class="bg-body">
 
-<nav class="site-nav"><a href="./">Home</a><a href="word-counts.html">Word Counts</a><a href="unique.html" class="active" aria-current="page">Unique Word Comparison</a><a href="chart.html">Word Charts</a><a class="nav-external" href="https://cse6332-project3.onrender.com/performance">Projects 3 &amp; 4</a><button id="toggleTheme" class="btn btn-secondary"><span id="themeIcon"></span> Toggle Theme</button></nav>
+<nav class="site-nav"><a href="./">Home</a><a href="word-counts.html">Word Counts</a><a href="unique.html" class="active" aria-current="page">Unique Word Comparison</a><a href="chart.html">Word Charts</a><button id="toggleTheme" class="btn btn-secondary"><span id="themeIcon"></span> Toggle Theme</button></nav>
 
 <div class="container my-5">
   <h1 class="text-center mb-4">🔎 Unique Word Comparison</h1>
@@ -178,10 +178,11 @@
     		<option value="literary">Literary</option>
   		</select>
 
-	  	<div class="form-text">
-  	  	Basic removes common English stop words.
-    		Literary additionally removes words like "said", "mr", and "mrs".
-  		</div>
+	  	<ul class="filter-help">
+      <li><strong>None:</strong> every word is counted, including &ldquo;the&rdquo;, &ldquo;and&rdquo; and &ldquo;of&rdquo;.</li>
+      <li><strong>Basic:</strong> removes 44 common English words such as the, and, of, to, was, he, she, they, have.</li>
+      <li><strong>Literary:</strong> Basic, plus 11 words common in novels: said, mr, mrs, miss, sir, lady, would, could, upon, shall, must.</li>
+    </ul>
 		</div>
 
     <div class="d-grid gap-2">

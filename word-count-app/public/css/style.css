@@ -174,3 +174,14 @@ h1::after, body > h2:first-of-type::after {
 [data-bs-theme="dark"] .subtitle-text {
   color: var(--app-muted);
 }
+
+/* Filter explanations */
+.filter-help {
+  margin: 0.6rem 0 0;
+  padding-left: 1.1rem;
+  font-size: 0.875rem;
+  color: var(--bs-secondary-color);
+}
+
+.filter-help li { margin-bottom: 0.15rem; }
+.filter-help strong { color: var(--bs-body-color); }
