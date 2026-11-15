@@ -100,6 +100,8 @@ async function indexBooks() {
     // TODO 1: store this book's word counts in Redis as a hash: one field per word, the count as its value.
     //   - First delete redisKey, so counts from an earlier start are not left behind.
     //   - Then write the whole wordCounts object to the hash in one command.
+    await client.del(redisKey);
+    await client.hSet(redisKey, wordCounts);
 
     console.log(`Indexed book: ${title}`);
   }
@@ -129,7 +131,7 @@ function filterWords(words, filterType = 'basic') {
 // API route to list books
 app.get('/word-chart-app/api/books', async (req, res) => {
   // TODO 2: get the names of all keys that match book:*:word_counts .
-  const keys = [];
+  const keys = await client.keys('book:*:word_counts');
   const titles = keys.map(k => k.split(':')[1]);
   res.json([...new Set(titles)]);
 });
@@ -142,7 +144,7 @@ app.get('/word-chart-app/api/book/:title/top/:n', async (req, res) => {
 
   const redisKey = `book:${title}:word_counts`;
   // TODO 3: read every field and value of the hash redisKey (an object { word: "count", ... }).
-  const wordMap = {};
+  const wordMap = await client.hGetAll(redisKey);
 
   let entries = Object.entries(wordMap)
     .map(([word, count]) => ({
@@ -170,8 +172,8 @@ app.get('/word-chart-app/api/compare-words', async (req, res) => {
 
     // TODO 4: read only the field names (the words) of both hashes, at the same time.
     const [words1, words2] = await Promise.all([
-      [],
-      []
+      client.hKeys(redisKey1),
+      client.hKeys(redisKey2)
     ]);
 
     if (words1.length === 0 || words2.length === 0) {
@@ -218,7 +220,7 @@ app.get('/word-chart-app/api/chart-data/:title/:n', async (req, res) => {
   try {
     const redisKey = `book:${title}:word_counts`;
     // TODO 5: read every field and value of the hash redisKey, as in TODO 3.
-    const wordMap = {};
+    const wordMap = await client.hGetAll(redisKey);
 
     if (!wordMap || Object.keys(wordMap).length === 0) {
       return res.status(404).json({ error: 'Book not found.' });
