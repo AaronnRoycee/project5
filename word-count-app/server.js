@@ -70,7 +70,8 @@ async function countWordsFromFile(filePath) {
   });
 
   for await (const line of rl) {
-    const words = line.toLowerCase().match(/\b[a-z']+\b/g);
+    // Strip accents first, so "Natásha" counts as "natasha" rather than as "nat" and "sha".
+    const words = line.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').match(/\b[a-z']+\b/g);
     if (words) {
       for (const word of words) {
         if (
